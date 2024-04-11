@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeNavGraph"
+        android:icon="@drawable/ic_round_home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/projectsNavGraph"
+        android:icon="@drawable/ic_round_projects"
+        android:title="@string/projects" />
+    <item
+        android:id="@+id/officialNavGraph"
+        android:icon="@drawable/ic_round_official"
+        android:title="@string/official_accounts" />
+    <item
+        android:id="@+id/mineNavGraph"
+        android:icon="@drawable/ic_round_mine"
+        android:title="@string/mine" />
+</menu>

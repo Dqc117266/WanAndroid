@@ -11,7 +11,7 @@ import com.dqc.base.common.res.Dimen
 
 @Composable
 fun DataNotFoundAnim() {
-//    LabeleAnimation(R.string.data_not_found)
+    LabeleAnimation(R.string.data_not_found, R.raw.lottie_error)
 }
 
 @Composable
