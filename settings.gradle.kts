@@ -27,3 +27,4 @@ dependencyResolutionManagement {
 // Before: implementation(project(":feature_album"))
 // After: implementation(projects.featureAlbum)
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+include(":home")
