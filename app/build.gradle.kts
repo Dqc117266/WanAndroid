@@ -23,6 +23,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigFieldFromGradleProperty("apiBaseUrl")
     }
 
     compileOptions {
@@ -51,6 +53,7 @@ android {
 
 dependencies {
     implementation(projects.base)
+    implementation(projects.home)
 }
 
 

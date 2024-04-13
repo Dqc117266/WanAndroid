@@ -17,11 +17,13 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
     companion object {
         val Fragment.mainActivity: BaseActivity
             get() = activity as BaseActivity
+
+        const val DESTINATION_HOME_LABEL = "HomeFragment"
     }
 
     var appBarLayout: LinearLayout? = null;
     var mainAppToolbar: MaterialToolbar? = null;
-    var SearchTextInputEditText: TextInputEditText? = null;
+    var searchTextInputEditText: TextInputEditText? = null;
     var searchLayout: LinearLayoutCompat? = null;
     var searchTextInputLayout: TextInputLayout? = null;
 

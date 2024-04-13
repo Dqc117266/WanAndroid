@@ -2,8 +2,8 @@ package com.dqc.wanandroid
 
 import android.app.Application
 import com.dqc.base.baseModule
+import com.dqc.home.homeModules
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.utilities.DynamicColor
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
@@ -29,7 +29,9 @@ class WanAndroidApplication: Application() {
             androidLogger()
             androidContext(this@WanAndroidApplication)
 
+            modules(appModule)
             modules(baseModule)
+            modules(homeModules)
         }
     }
 

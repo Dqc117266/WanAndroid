@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dqc.library_test_utils"
+    namespace = "com.dqc.testutils"
 }
 
 dependencies {
