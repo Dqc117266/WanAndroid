@@ -26,7 +26,7 @@ internal class HomeViewModel(
 
     private var job: Job? = null
 
-    private fun getArticles(page: Int) {
+    fun getArticles(page: Int) {
 
         if(job != null) {
             job?.cancel()

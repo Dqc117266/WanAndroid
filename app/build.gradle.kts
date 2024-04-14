@@ -54,6 +54,9 @@ android {
 dependencies {
     implementation(projects.base)
     implementation(projects.home)
+    implementation(projects.projects)
+    implementation(projects.official)
+    implementation(projects.mine)
 }
 
 

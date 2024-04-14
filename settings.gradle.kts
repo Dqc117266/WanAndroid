@@ -2,7 +2,11 @@ rootProject.name = "WanAndroid"
 include(
     ":app",
     ":base",
-    ":library_test_utils"
+    ":library_test_utils",
+    ":home",
+    ":projects",
+    ":official",
+    ":mine"
 )
 
 pluginManagement {
@@ -27,4 +31,3 @@ dependencyResolutionManagement {
 // Before: implementation(project(":feature_album"))
 // After: implementation(projects.featureAlbum)
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":home")

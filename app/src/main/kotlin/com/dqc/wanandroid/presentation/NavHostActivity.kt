@@ -2,6 +2,7 @@ package com.dqc.wanandroid.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +23,7 @@ class NavHostActivity : BaseActivity(R.layout.activity_nav_host),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         initAppBar()
         initNavManager()

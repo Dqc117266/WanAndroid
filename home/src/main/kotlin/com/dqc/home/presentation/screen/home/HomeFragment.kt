@@ -33,7 +33,7 @@ import com.dqc.home.presentation.screen.home.HomeViewModel.UiState.Error
 import com.dqc.home.presentation.screen.home.HomeViewModel.UiState.Content
 
 class HomeFragment : BaseFragment() {
-    private val model: HomeViewModel by koinNavGraphViewModel(R.id.homeNavGraph)
+//    private val model: HomeViewModel by koinNavGraphViewModel(R.id.homeNavGraph)
 
     //    private va
     override fun onCreateView(
@@ -41,15 +41,17 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//        model.getArticles(0)
+
         return ComposeView(requireContext()).apply {
             setContent {
-                HomeScreen(model)
+                TestView()
+//                HomeScreen()
             }
         }
     }
 
     companion object {
-        const val MINIMUM_PRODUCT_QUERY_SIZE = 1
 
         const val DELAY_BEFORE_SUBMITTING_QUERY = 500L
 
@@ -84,13 +86,14 @@ class HomeFragment : BaseFragment() {
                     menu?.clear()
                     inflateMenu(R.menu.menu_toolbar_main)
                     setOnMenuItemClickListener { _ ->
-                        configureSearchAppBar(baseActivity)
+//                        configureSearchAppBar(baseActivity)
                         true
                     }
                     logo = null
                 }
             }
         }
+
         private fun configureSearchAppBar(baseActivity: BaseActivity) {
             baseActivity.apply {
                 searchLayout?.updateLayoutParams {
@@ -120,6 +123,8 @@ class HomeFragment : BaseFragment() {
                 }
             }
         }
+
+
     }
 
 }
@@ -151,5 +156,10 @@ private fun ArticleListView(articles: List<Article>, viewModel: HomeViewModel) {
             }
         }
     }
+}
+
+@Composable
+private fun TestView() {
+    Text(text = "首页", modifier = Modifier.wrapContentSize())
 }
 

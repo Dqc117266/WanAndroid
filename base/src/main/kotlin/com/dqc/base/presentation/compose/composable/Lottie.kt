@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -41,6 +42,6 @@ fun LottieAssetLoader(@RawRes assetResId: Int) {
 
     LottieAnimation(
         composition,
-        modifier = Modifier.requiredSize(Dimen.spaceXL),
+        modifier = Modifier.requiredSize(200.dp),
     )
 }
