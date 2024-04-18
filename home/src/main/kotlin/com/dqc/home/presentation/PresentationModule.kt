@@ -7,6 +7,6 @@ import org.koin.dsl.module
 internal val presentationModule = module {
     viewModelOf(::HomeViewModel)
 
-    single { }
+//    single { }
 
 }

@@ -3,6 +3,8 @@ package com.dqc.wanandroid.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -32,11 +34,11 @@ class NavHostActivity : BaseActivity(R.layout.activity_nav_host),
 
     private fun initAppBar() {
         binding.apply {
-            mainAppToolbar = binding.mainToolbar
-            appBarLayout = binding.mainAppbarLayout
-            searchTextInputEditText = binding.mainSearchTextInputEditText
-            searchLayout = binding.mainSearchLayout
-            searchTextInputLayout = binding.mainSearchTextInputLayout
+//            mainAppToolbar = binding.mainAppbarLayout
+//            appBarLayout = binding.mainAppbarLayout
+//            searchTextInputEditText = binding.mainSearchTextInputEditText
+//            searchLayout = binding.mainSearchLayout
+//            searchTextInputLayout = binding.mainSearchTextInputLayout
         }
     }
 
@@ -60,13 +62,15 @@ class NavHostActivity : BaseActivity(R.layout.activity_nav_host),
         arguments: Bundle?
     ) {
 
-        when (destination.label) {
-            DESTINATION_HOME_LABEL -> {
-                HomeFragment.configureAppBar(this)
-            }
-            else -> {
-                binding.mainAppbarLayout.visibility = View.GONE
-            }
-        }
+//        when (destination.label) {
+//            DESTINATION_HOME_LABEL -> HomeFragment.configureAppBar(this)
+//            DESTINATION_PROJECTS_LABEL -> setTitleName(R.string.projects)
+//            DESTINATION_OFFICIAL_LABEL -> setTitleName(R.string.official_accounts)
+//            DESTINATION_MINE_LABEL -> setTitleName(R.string.mine)
+//        }
+    }
+
+    private fun setTitleName(@StringRes titleNameId: Int) {
+//        mainAppToolbar?.setTitle(titleNameId)
     }
 }

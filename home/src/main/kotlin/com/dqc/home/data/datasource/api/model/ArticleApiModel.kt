@@ -1,5 +1,6 @@
 package com.dqc.home.data.datasource.api.model
 
+import com.dqc.home.domain.model.Article
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -34,10 +35,50 @@ internal data class ArticleApiModel(
     @SerialName("shareUser") val shareUser: String,
     @SerialName("superChapterId") val superChapterId: Int,
     @SerialName("superChapterName") val superChapterName: String,
-    @SerialName("tags") val tags: TagListApiModel,
+    @SerialName("tags") val tags: List<TagApiModel>,
     @SerialName("title") val title: String,
     @SerialName("type") val type: Int,
     @SerialName("userId") val userId: Int,
     @SerialName("visible") val visible: Int,
     @SerialName("zan") val zan: Int
 )
+
+internal fun ArticleApiModel.toDomainModel(): Article {
+    return Article(
+        adminAdd = this.adminAdd,
+        apkLink = this.apkLink,
+        audit = this.audit,
+        author = this.author,
+        canEdit = this.canEdit,
+        chapterId = this.chapterId,
+        chapterName = this.chapterName,
+        collect = this.collect,
+        courseId = this.courseId,
+        desc = this.desc,
+        descMd = this.descMd,
+        envelopePic = this.envelopePic,
+        fresh = this.fresh,
+        host = this.host,
+        id = this.id,
+        isAdminAdd = this.isAdminAdd,
+        link = this.link,
+        niceDate = this.niceDate,
+        niceShareDate = this.niceShareDate,
+        origin = this.origin,
+        prefix = this.prefix,
+        projectLink = this.projectLink,
+        publishTime = this.publishTime,
+        realSuperChapterId = this.realSuperChapterId,
+        selfVisible = this.selfVisible,
+        shareDate = this.shareDate,
+        shareUser = this.shareUser,
+        superChapterId = this.superChapterId,
+        superChapterName = this.superChapterName,
+        tags = this.tags.map { it.toDomainModel() },
+        title = this.title,
+        type = this.type,
+        userId = this.userId,
+        visible = this.visible,
+        zan = this.zan
+    )
+}

@@ -19,13 +19,16 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
             get() = activity as BaseActivity
 
         const val DESTINATION_HOME_LABEL = "HomeFragment"
+        const val DESTINATION_PROJECTS_LABEL = "ProjectsFragment"
+        const val DESTINATION_OFFICIAL_LABEL = "OfficialFragment"
+        const val DESTINATION_MINE_LABEL = "MineFragment"
     }
 
-    var appBarLayout: LinearLayout? = null;
+//    var appBarLayout: LinearLayout? = null;
     var mainAppToolbar: MaterialToolbar? = null;
-    var searchTextInputEditText: TextInputEditText? = null;
-    var searchLayout: LinearLayoutCompat? = null;
-    var searchTextInputLayout: TextInputLayout? = null;
+//    var searchTextInputEditText: TextInputEditText? = null;
+//    var searchLayout: LinearLayoutCompat? = null;
+//    var searchTextInputLayout: TextInputLayout? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

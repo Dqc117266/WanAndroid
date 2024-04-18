@@ -18,7 +18,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 internal class HomeViewModel(
-    private val savedStateHandle: SavedStateHandle,
     private val navManager: NavManager,
     private val getArticlesUseCase: GetArticlesUseCase
 ) : BaseViewModel<UiState, Action>(Loading) {

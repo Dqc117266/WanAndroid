@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,7 +34,7 @@ import com.dqc.home.presentation.screen.home.HomeViewModel.UiState.Error
 import com.dqc.home.presentation.screen.home.HomeViewModel.UiState.Content
 
 class HomeFragment : BaseFragment() {
-//    private val model: HomeViewModel by koinNavGraphViewModel(R.id.homeNavGraph)
+    private val model: HomeViewModel by koinNavGraphViewModel(R.id.homeNavGraph)
 
     //    private va
     override fun onCreateView(
@@ -41,12 +42,12 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        model.getArticles(0)
+
+        model.getArticles(0)
 
         return ComposeView(requireContext()).apply {
             setContent {
-                TestView()
-//                HomeScreen()
+                HomeScreen(model)
             }
         }
     }
@@ -57,13 +58,13 @@ class HomeFragment : BaseFragment() {
 
         fun configureAppBar(baseActivity: BaseActivity) {
             baseActivity.apply {
-                appBarLayout?.apply {
-                    elevation = 0f
-                    isVisible = true
-                }
+//                appBarLayout?.apply {
+//                    elevation = 0f
+//                    isVisible = true
+//                }
 
-                mainAppToolbar?.layoutTransition = null
-                appBarLayout?.layoutTransition = null
+//                mainAppToolbar?.layoutTransition = null
+//                appBarLayout?.layoutTransition = null
 
                 configureDefaultAppBar(baseActivity)
             }
@@ -71,13 +72,13 @@ class HomeFragment : BaseFragment() {
 
         private fun configureDefaultAppBar(baseActivity: BaseActivity) {
             baseActivity.apply {
-                searchTextInputEditText?.hideKeyboard()
-                searchLayout?.updateLayoutParams {
-                    width = ViewGroup.LayoutParams.WRAP_CONTENT
-                }
-                searchTextInputLayout?.apply {
-                    isVisible = false
-                }
+//                searchTextInputEditText?.hideKeyboard()
+//                searchLayout?.updateLayoutParams {
+//                    width = ViewGroup.LayoutParams.WRAP_CONTENT
+//                }
+//                searchTextInputLayout?.apply {
+//                    isVisible = false
+//                }
                 mainAppToolbar?.apply {
                     post {
                         setTitle(R.string.home)
@@ -96,13 +97,13 @@ class HomeFragment : BaseFragment() {
 
         private fun configureSearchAppBar(baseActivity: BaseActivity) {
             baseActivity.apply {
-                searchLayout?.updateLayoutParams {
-                    width = ViewGroup.LayoutParams.MATCH_PARENT
-                }
-
-                searchTextInputLayout.apply {
-                    this?.isVisible = true
-                }
+//                searchLayout?.updateLayoutParams {
+//                    width = ViewGroup.LayoutParams.MATCH_PARENT
+//                }
+//
+//                searchTextInputLayout.apply {
+//                    this?.isVisible = true
+//                }
 
                 mainAppToolbar.apply {
                     this?.title = null
@@ -115,16 +116,14 @@ class HomeFragment : BaseFragment() {
                     this?.logo = null
                 }
 
-                searchTextInputEditText?.let {
-                    it.post {
-                        it.requestFocus()
-                        it.showKeyboard()
-                    }
-                }
+//                searchTextInputEditText?.let {
+//                    it.post {
+//                        it.requestFocus()
+//                        it.showKeyboard()
+//                    }
+//                }
             }
         }
-
-
     }
 
 }
@@ -146,14 +145,16 @@ private fun HomeScreen(viewModel: HomeViewModel) {
 private fun ArticleListView(articles: List<Article>, viewModel: HomeViewModel) {
     LazyColumn {
         items(items = articles, key = { it.id }) { article ->
-            ElevatedCard(
-                modifier = Modifier
-                    .padding(Dimen.spaceS)
-                    .wrapContentSize()
-            ) {
+            ListItem(headlineContent = { Text(text = article.title) })
 
-                Text(text = article.title)
-            }
+//            ElevatedCard(
+//                modifier = Modifier
+//                    .padding(Dimen.spaceS)
+//                    .wrapContentSize()
+//            ) {
+//
+//                Text(text = article.title)
+//            }
         }
     }
 }
