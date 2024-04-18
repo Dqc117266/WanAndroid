@@ -83,6 +83,7 @@ viewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.
 livedataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
 composeUI = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 activity = {module = "androidx.activity:activity-compose", version.ref = "compose"}
+preview = {module = "androidx.compose.ui:ui-tooling-preview", version.ref = "appCompat"}
 toolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 livedataRuntime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 navigationFragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigation" }
@@ -109,7 +110,7 @@ ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitV
 [bundles]
 retrofit = ["retrofitCore", "kotlinxSerializationConverter", "serializationJson", "okhttp", "okhttpInterceptor"]
 koin = ["koin", "koinNavigation"]
-compose = ["composeUI", "toolingPreview", "lottie", "coil", "activity"]
+compose = ["composeUI", "toolingPreview", "lottie", "coil", "activity", "preview"]
 lifecycle = ["viewmodelKtx", "livedataKtx", "livedataRuntime"]
 navigation = ["navigationFragment", "navigationUiKtx"]
 room = ["roomKtx", "roomRuntime"]

@@ -1,30 +1,43 @@
 package com.dqc.home.presentation.screen.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dqc.base.common.res.Dimen
-import com.dqc.base.presentation.activity.BaseActivity
 import com.dqc.base.presentation.activity.BaseFragment
 import com.dqc.base.presentation.compose.composable.DataNotFoundAnim
 import com.dqc.base.presentation.compose.composable.ProgressIndicator
-import com.dqc.base.presentation.ext.hideKeyboard
-import com.dqc.base.presentation.ext.showKeyboard
 import com.dqc.home.R
 import com.dqc.home.domain.model.Article
 import org.koin.androidx.navigation.koinNavGraphViewModel
@@ -36,13 +49,11 @@ import com.dqc.home.presentation.screen.home.HomeViewModel.UiState.Content
 class HomeFragment : BaseFragment() {
     private val model: HomeViewModel by koinNavGraphViewModel(R.id.homeNavGraph)
 
-    //    private va
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         model.getArticles(0)
 
         return ComposeView(requireContext()).apply {
@@ -52,109 +63,56 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    companion object {
-
-        const val DELAY_BEFORE_SUBMITTING_QUERY = 500L
-
-        fun configureAppBar(baseActivity: BaseActivity) {
-            baseActivity.apply {
-//                appBarLayout?.apply {
-//                    elevation = 0f
-//                    isVisible = true
-//                }
-
-//                mainAppToolbar?.layoutTransition = null
-//                appBarLayout?.layoutTransition = null
-
-                configureDefaultAppBar(baseActivity)
-            }
-        }
-
-        private fun configureDefaultAppBar(baseActivity: BaseActivity) {
-            baseActivity.apply {
-//                searchTextInputEditText?.hideKeyboard()
-//                searchLayout?.updateLayoutParams {
-//                    width = ViewGroup.LayoutParams.WRAP_CONTENT
-//                }
-//                searchTextInputLayout?.apply {
-//                    isVisible = false
-//                }
-                mainAppToolbar?.apply {
-                    post {
-                        setTitle(R.string.home)
-                        logo = null
-                    }
-                    menu?.clear()
-                    inflateMenu(R.menu.menu_toolbar_main)
-                    setOnMenuItemClickListener { _ ->
-//                        configureSearchAppBar(baseActivity)
-                        true
-                    }
-                    logo = null
-                }
-            }
-        }
-
-        private fun configureSearchAppBar(baseActivity: BaseActivity) {
-            baseActivity.apply {
-//                searchLayout?.updateLayoutParams {
-//                    width = ViewGroup.LayoutParams.MATCH_PARENT
-//                }
-//
-//                searchTextInputLayout.apply {
-//                    this?.isVisible = true
-//                }
-
-                mainAppToolbar.apply {
-                    this?.title = null
-                    this?.setNavigationOnClickListener {
-                        configureDefaultAppBar(
-                            baseActivity,
-                        )
-                    }
-                    this?.menu?.clear()
-                    this?.logo = null
-                }
-
-//                searchTextInputEditText?.let {
-//                    it.post {
-//                        it.requestFocus()
-//                        it.showKeyboard()
-//                    }
-//                }
-            }
-        }
-    }
-
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun HomeScreen(viewModel: HomeViewModel) {
-    val uiState: UiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = stringResource(id = R.string.home)) // 设置Toolbar标题
+                },
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            imageVector = Icons.Outlined.Search,
+                            contentDescription = "Search",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
 
-    uiState.let {
-        when (it) {
-            Error -> DataNotFoundAnim()
-            Loading -> ProgressIndicator()
-            is Content -> ArticleListView(it.articles.datas, viewModel)
-        }
-    }
+                    }
+                },
+                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+            )
+        },
+        content = {
+            val uiState: UiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
+
+            uiState.let {
+                when (it) {
+                    Error -> DataNotFoundAnim()
+                    Loading -> ProgressIndicator()
+                    is Content -> ArticleListView(it.articles.datas, viewModel)
+                }
+            }
+        },
+    )
 }
 
 @Composable
 private fun ArticleListView(articles: List<Article>, viewModel: HomeViewModel) {
     LazyColumn {
         items(items = articles, key = { it.id }) { article ->
-            ListItem(headlineContent = { Text(text = article.title) })
-
-//            ElevatedCard(
-//                modifier = Modifier
-//                    .padding(Dimen.spaceS)
-//                    .wrapContentSize()
-//            ) {
-//
-//                Text(text = article.title)
-//            }
+            ListItem(
+                modifier = Modifier
+                    .clickable(
+                        indication = rememberRipple(color = Color.Gray),
+                        interactionSource = remember {
+                            MutableInteractionSource()
+                        }) {}, headlineContent = { Text(text = article.title) })
         }
     }
 }

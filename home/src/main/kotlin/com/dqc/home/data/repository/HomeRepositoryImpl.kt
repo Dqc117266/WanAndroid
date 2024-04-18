@@ -4,6 +4,7 @@ import com.dqc.base.data.retrofit.ApiResult
 import com.dqc.base.domain.result.Result
 import com.dqc.home.data.datasource.api.model.toDomainModel
 import com.dqc.home.data.datasource.api.service.HomeRetrofitService
+import com.dqc.home.domain.model.Article
 import com.dqc.home.domain.model.Articles
 import com.dqc.home.domain.model.Banner
 import com.dqc.home.domain.repository.HomeRespository
@@ -30,11 +31,10 @@ internal class HomeRepositoryImpl(
         }
 
     override suspend fun getBanner(): Result<List<Banner>> =
-        when (val apiResult = homeRetrofitService.getArticles(0)) {
+        when (val apiResult = homeRetrofitService.getBanner()) {
             is ApiResult.Success -> {
-//                val artcles = apiResult.data.results
-//                Result.Success(artcles.toDomainModel())
-                Result.Failure()
+                val banner = apiResult.data.results;
+                Result.Success(banner.map { it.toDomainModel() })
             }
             is ApiResult.Error -> {
                 Result.Failure()
@@ -45,12 +45,11 @@ internal class HomeRepositoryImpl(
             }
         }
 
-    override suspend fun getArtcleTopInfo(): Result<Articles> =
-        when (val apiResult = homeRetrofitService.getArticles(0)) {
+    override suspend fun getArtcleTopInfo(): Result<List<Article>> =
+        when (val apiResult = homeRetrofitService.getTopArticles()) {
             is ApiResult.Success -> {
-//                val artcles = apiResult.data.results
-//                Result.Success(artcles.toDomainModel())
-                Result.Failure()
+                val artcles = apiResult.data.results
+                Result.Success(artcles.map { it.toDomainModel() })
             }
             is ApiResult.Error -> {
                 Result.Failure()
@@ -61,10 +60,4 @@ internal class HomeRepositoryImpl(
             }
         }
 
-//    override suspend fun getBanner(): Result<List<Banner>> {
-//
-//    }
-//
-//    override suspend fun getArtcleTopInfo(): Result<Articles> {
-//    }
 }

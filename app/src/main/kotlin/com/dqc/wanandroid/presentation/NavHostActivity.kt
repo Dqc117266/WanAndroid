@@ -27,7 +27,7 @@ class NavHostActivity : BaseActivity(R.layout.activity_nav_host),
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        initAppBar()
+//        initAppBar()
         initNavManager()
         initBottomNavigation()
     }
@@ -68,9 +68,5 @@ class NavHostActivity : BaseActivity(R.layout.activity_nav_host),
 //            DESTINATION_OFFICIAL_LABEL -> setTitleName(R.string.official_accounts)
 //            DESTINATION_MINE_LABEL -> setTitleName(R.string.mine)
 //        }
-    }
-
-    private fun setTitleName(@StringRes titleNameId: Int) {
-//        mainAppToolbar?.setTitle(titleNameId)
     }
 }

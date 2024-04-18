@@ -49,7 +49,6 @@ internal class HomeViewModel(
                 sendAction(action)
             }
         }
-
     }
 
     internal sealed interface UiState : BaseState {
