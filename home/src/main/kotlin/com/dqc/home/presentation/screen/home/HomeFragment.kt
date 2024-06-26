@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,7 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dqc.base.presentation.activity.BaseFragment
 import com.dqc.base.presentation.compose.composable.DataNotFoundAnim
@@ -54,7 +50,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        model.getArticles(0)
+        model.fetchRefreshData()
 
         return ComposeView(requireContext()).apply {
             setContent {
@@ -88,14 +84,14 @@ private fun HomeScreen(viewModel: HomeViewModel) {
                 scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
             )
         },
-        content = {
+        content = { paddingValues ->
             val uiState: UiState by viewModel.uiStateFlow.collectAsStateWithLifecycle()
 
             uiState.let {
                 when (it) {
                     Error -> DataNotFoundAnim()
                     Loading -> ProgressIndicator()
-                    is Content -> ArticleListView(it.articles.datas, viewModel)
+                    is Content -> ArticleListView(it.articles, viewModel, paddingValues)
                 }
             }
         },
@@ -103,8 +99,10 @@ private fun HomeScreen(viewModel: HomeViewModel) {
 }
 
 @Composable
-private fun ArticleListView(articles: List<Article>, viewModel: HomeViewModel) {
-    LazyColumn {
+private fun ArticleListView(articles: List<Article>, viewModel: HomeViewModel, paddingValues: PaddingValues) {
+    LazyColumn(
+        contentPadding = paddingValues
+    ) {
         items(items = articles, key = { it.id }) { article ->
             ListItem(
                 modifier = Modifier
