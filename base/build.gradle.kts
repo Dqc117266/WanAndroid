@@ -22,6 +22,7 @@ dependencies {
     api(libs.material)
     api(libs.composeMaterial)
     api(libs.accompanistFlowLayout)
+    api(libs.swiperefresh)
     api(libs.bundles.koin)
     api(libs.bundles.retrofit)
     api(libs.bundles.navigation)

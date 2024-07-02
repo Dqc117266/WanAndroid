@@ -1,6 +1,8 @@
 package com.dqc.home.presentation.screen.home
 
-import androidx.lifecycle.SavedStateHandle
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.dqc.base.domain.result.Result
 import com.dqc.base.presentation.nav.NavManager
@@ -31,7 +33,8 @@ internal class HomeViewModel(
 ) : BaseViewModel<UiState, Action>(Loading) {
 
     private var currentPage: Int = 0
-    private var isRefreshing: Boolean = false
+    var isRefreshing by mutableStateOf(false)
+
     private var job: Job? = null
 
     fun getArticles(page: Int) {
@@ -61,6 +64,8 @@ internal class HomeViewModel(
     }
 
     fun fetchRefreshData() {
+        isRefreshing = true
+
         if (job != null) {
             job?.cancel()
             job = null
@@ -99,6 +104,8 @@ internal class HomeViewModel(
                 }
             } catch (e: Exception) {
                 sendAction(Action.HomeLoadFailure)
+            } finally {
+                isRefreshing = false
             }
         }
     }
